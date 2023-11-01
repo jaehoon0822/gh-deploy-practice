@@ -76,11 +76,11 @@ jobs:
 
       - name: Get AWS ENV Name
         id: get-env-name
-        run: echo "aws_env=$(aws elasticbeanstalk describe-environments --profile gh-action-demo --application-name ${{ vars.AWS_EB_APP_NAME }} --environment-names ${{ inputs.aws-env }} --query "Environments[0].EnvironmentName" --output text)" >> $GIHTUB_OUTPUT
+        run: echo "aws_env=$(aws elasticbeanstalk describe-environments --profile gh-action-demo --application-name ${{ vars.AWS_EB_APP_NAME }} --environment-names ${{ inputs.aws-env }} --query "Environments[0].EnvironmentName" --output text)" >> $GITHUB_OUTPUT
 
       - name: Get AWS ENV Status
         id: get-env-status
-        run: echo "aws_env_status=$(aws elasticbeanstalk describe-environments --profile gh-action-demo --application-name ${{ vars.AWS_EB_APP_NAME }} --environment-names ${{ inputs.aws-env }} --query "Environments[0].Status" --output text)" >> $GIHTUB_OUTPUT
+        run: echo "aws_env_status=$(aws elasticbeanstalk describe-environments --profile gh-action-demo --application-name ${{ vars.AWS_EB_APP_NAME }} --environment-names ${{ inputs.aws-env }} --query "Environments[0].Status" --output text)" >> $GITHUB_OUTPUT
 
       - name: Initialize EB
         run: eb init ${{ vars.AWS_EB_APP_NAME }} --platform "${{ vars.AWS_EB_PLATFORM }}" --rigion ${{ vars.AWS_REGION}}
@@ -95,7 +95,7 @@ jobs:
 
       - name: Get AWS ENV CNAME
         id: get-env-cname
-        run: echo "aws_env_cname=$(aws elasticbeanstalk describe-environments --profile gh-action-demo --application-name ${{ vars.AWS_EB_APP_NAME }} --environment-names ${{ inputs.aws-env }} --query "Environments[0].CNAME" --output text)" >> $GIHTUB_OUTPUT
+        run: echo "aws_env_cname=$(aws elasticbeanstalk describe-environments --profile gh-action-demo --application-name ${{ vars.AWS_EB_APP_NAME }} --environment-names ${{ inputs.aws-env }} --query "Environments[0].CNAME" --output text)" >> $GITHUB_OUTPUT
 
       - name: Abort if Cancelled
         if: cancelled() && steps.install-eb-cli.conclusion == 'success'
