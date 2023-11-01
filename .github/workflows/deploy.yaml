@@ -87,11 +87,11 @@ jobs:
           echo ${{ env.aws_env_status }}
 
       - name: Initialize EB
-        run: eb init ${{ vars.AWS_EB_APP_NAME }} --platform "${{ vars.AWS_EB_PLATFORM }}"
+        run: eb init ${{ vars.AWS_EB_APP_NAME }} --platform "${{ vars.AWS_EB_PLATFORM }}" --region ap-northeast-2
 
       - name: Create a New Environment
         if: steps.get-env-name.outputs.aws_env == 'None' || steps.get-env-status.outputs.aws_env_status == 'Terminated'
-        run: eb create ${{ inputs.aws-env }} --instance-types ${{ vars.AWS_EB_ENV_INSTANCE_TYPES }} --cname ${{ inputs.aws-env }} --envvars FLAGSMITH_KEY=${{ secrets.FLAGSMITH_KEY }}
+        run: eb create ${{ inputs.aws-env }} --instance-types ${{ vars.AWS_EB_ENV_INSTANCE_TYPES }} --cname ${{ inputs.aws-env }} --envvars FLAGSMITH_KEY=${{ secrets.FLAGSMITH_KEY }} --region ap-northeast-2
 
       - name: Deploy if Environment Existws
         if: steps.get-env-name.outputs.aws_env == inputs.aws-env && steps.get-env-status.outputs.aws_env_status != 'Terminated'
