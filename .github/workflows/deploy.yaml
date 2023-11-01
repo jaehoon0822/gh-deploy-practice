@@ -64,7 +64,7 @@ jobs:
       - name: Bulid App
         run: npm run build
         env:
-          FLAGSMITH_KEY: ${{ env.FLAGSMITH_KEY }}
+          FLAGSMITH_KEY: ${{ secrets.FLAGSMITH_KEY }}
 
       - uses: actions/cache@v3
         with:
